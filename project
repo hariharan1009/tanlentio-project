@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-input input {
+            flex: 1;
+            padding: 8px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Task Manager</h1>
+        
+        <div class="task-input">
+            <input type="text" id="task" placeholder="Enter a task...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+
+        <ul id="task-list"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadTasks);
+
+        function addTask() {
+            let taskInput = document.getElementById("task");
+            let taskText = taskInput.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let taskList = document.getElementById("task-list");
+            let li = document.createElement("li");
+
+            li.innerHTML = `
+                <span onclick="toggleComplete(this)">${taskText}</span>
+                <button onclick="deleteTask(this)">❌</button>
+            `;
+
+            taskList.appendChild(li);
+            saveTasks();
+            taskInput.value = "";
+        }
+
+        function deleteTask(button) {
+            button.parentElement.remove();
+            saveTasks();
+        }
+
+        function toggleComplete(task) {
+            task.classList.toggle("completed");
+            saveTasks();
+        }
+
+        function saveTasks() {
+            let tasks = [];
+            document.querySelectorAll("#task-list li").forEach(li => {
+                tasks.push({
+                    text: li.querySelector("span").innerText,
+                    completed: li.querySelector("span").classList.contains("completed")
+                });
+            });
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            let taskList = document.getElementById("task-list");
+
+            tasks.forEach(task => {
+                let li = document.createElement("li");
+                li.innerHTML = `
+                    <span onclick="toggleComplete(this)" class="${task.completed ? 'completed' : ''}">${task.text}</span>
+                    <button onclick="deleteTask(this)">❌</button>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
