@@ -1,0 +1,130 @@
+.container {
+  padding: 2rem 0;
+}
+
+.title {
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.select {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--background);
+  color: var(--text-color);
+}
+
+.analyzeButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.analyzeButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.analyzeButton:disabled {
+  background-color: var(--text-light);
+  cursor: not-allowed;
+}
+
+.editorContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.codeInput, .results {
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: var(--background);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-family: monospace;
+  background-color: var(--background);
+  color: var(--text-color);
+  resize: vertical;
+}
+
+.error {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: var(--error-color);
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.complexityContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.complexityBox {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: var(--background-light);
+}
+
+.complexityBox h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.complexityValue {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.codeBlock {
+  background-color: var(--background-light);
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .editorContainer {
+    grid-template-columns: 1fr;
+  }
+}
