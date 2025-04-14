@@ -1,6 +1,6 @@
 import './globals.css';
 export const metadata = {
-  title: 'DreamTrails - Explore the World',
+  title: 'code Editor',
   description: 'Best travel packages for unforgettable journeys.',
 };
 
